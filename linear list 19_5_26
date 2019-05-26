@@ -1,0 +1,62 @@
+/////////////////////////////////////*********顺序线性表的操作*********/////////////////////////////////////////// 
+#include<stdio.h>
+#include<malloc.h>
+#define MAX_SIZE 20
+typedef struct Node *List;	//typedef struct LNode *List表示定义了一个别名List，List代表 struct LNode *类型的别名，它是一个指针类型
+struct Node{
+	int Data[MAX_SIZE];
+	int last;
+};
+struct Node L;				//struct LNode类型的变量L
+List PtrL;					//*List类型的变量PtrL
+							//初始化《建立空的线性表》
+List MakeEmpty(){
+	List PrtL;
+	PrtL=(List)malloc(sizeof(struct Node));
+	PtrL->last=-1;          //使用一个指向结构体或对象的指针访问其内成员且赋值。
+	return PtrL;
+} 
+							//find 
+int find(int X,List PrtL){
+	int i=0;
+	while(i<=PrtL->last&&PrtL->Data[i]!=X){
+		i++;
+	}
+	if (i>PrtL->last) return -1;
+	else return i;
+}
+                           //insert（在第i(1<=i<=i+1)个位置插入X） 
+void Insert(int X,int i,List PtrL){
+	int j;
+	if(PtrL->last==MAX_SIZE-1){
+		printf("线性表表满！");
+		return;
+	}
+	if(i<1||i>PtrL->last+2){
+		printf("insert位置不合法！");
+		return;
+	} 
+	for(i=PtrL->last;j>=i-1;j--){			//从 last 开始 
+		PtrL->Data[j+1]=PtrL->Data[j];		//每次循环j移动到j+1 
+	}
+	PtrL->Data[i-1]=X;						//i-1就是第i个位置 
+	PtrL->last++;							//last仍然指向最后 
+	printf("insert Success！");
+	return;
+} 
+				//delete   delect i(1<=i<=n)
+int delete(int i ,List PtrL){
+	int j;
+	if(i<1||i>PtrL->last+2){				//检查合法性 
+		printf("不存在第%d个元素",i);
+		return;
+	} 
+	for(j=i;j<=PtrL->last;j++){
+		PtrL->Data[j-1]=PtrL->Data[j];
+	} 
+	PtrL->last--;
+	
+}
+int main(void){
+	//test
+}
